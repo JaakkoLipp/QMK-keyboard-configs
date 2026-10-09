@@ -1,4 +1,5 @@
 {
     "converter": "rp2040_ce",
-    "host_language": "finnish"
+    "host_language": "finnish",
+    "modules": ["jaakkolipp/no_mechboards_oled"]
 }

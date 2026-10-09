@@ -16,4 +16,8 @@ TAP_DANCE_ENABLE = no
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 
-SRC += features/fi_keys.c
+SRC += features/fi_keys.c \
+       features/shared.c \
+       features/host_link.c \
+       features/oled.c \
+       features/rgb_layers.c

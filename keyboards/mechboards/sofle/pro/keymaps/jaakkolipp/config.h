@@ -19,3 +19,19 @@
 // Linux desktop switching: Ctrl+GUI+arrow (KDE, same as Windows) by default.
 // Uncomment for GNOME, which uses Ctrl+Alt+arrow.
 // #define DESKTOP_GNOME
+
+// Split sync for the OLEDs and RGB on the non-USB half.
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+#define SPLIT_WPM_ENABLE
+#define SPLIT_OLED_ENABLE
+#define SPLIT_ACTIVITY_ENABLE
+#define SPLIT_DETECTED_OS_ENABLE
+// Our own state (features/shared.h): locked layers, clock, Claude status...
+#define SPLIT_TRANSACTION_IDS_USER RPC_ID_USER_SHARED
+
+// Displays sleep after a minute; RGB after five (features/rgb_layers.c),
+// except while Claude Code is waiting for you.
+#define OLED_TIMEOUT 60000
+#define RGB_MATRIX_SLEEP

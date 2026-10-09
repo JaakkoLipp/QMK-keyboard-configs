@@ -9,6 +9,9 @@
 #include "sendstring_finnish.h"
 #include "features/keycodes.h"
 #include "features/fi_keys.h"
+#include "features/shared.h"
+#include "features/host_link.h"
+#include "features/oled.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,13 +76,14 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 void keyboard_post_init_user(void) {
     user_config_load();
+    shared_init();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_fi_keys(keycode, record)) {
-        return false;
+    if (record->event.pressed && !IS_ENCODEREVENT(record->event)) {
+        shared_count_keystroke();
     }
-    return true;
+    return process_fi_keys(keycode, record) && process_host_keys(keycode, record) && process_oled_keys(keycode, record);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -88,4 +92,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void housekeeping_task_user(void) {
     fi_keys_housekeeping();
+    shared_housekeeping();
 }
