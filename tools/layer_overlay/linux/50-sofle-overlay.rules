@@ -1,0 +1,6 @@
+# Lets the logged-in user open the Sofle's raw HID interface (QMK VID/PID from
+# keyboards/mechboards/sofle/pro/keyboard.json). The file name must sort before
+# 73-seat-late.rules for TAG+="uaccess" to work.
+#   sudo cp 50-sofle-overlay.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="7171", ATTRS{idProduct}=="0004", TAG+="uaccess"
