@@ -1,0 +1,15 @@
+# keymap-drawer settings for docs/layers/*.svg (see tools/keymap/gen_layers.py)
+draw_config:
+  dark_mode: auto
+  key_w: 58
+  key_h: 54
+  split_gap: 40
+  shrink_wide_legends: 5
+  append_colon_to_layer_header: false
+  svg_extra_style: |
+    rect.held { fill: #fde68a; }
+    rect.mod { fill: #e0e7ff; }
+    @media (prefers-color-scheme: dark) {
+      rect.held { fill: #92400e; }
+      rect.mod { fill: #312e81; }
+    }
