@@ -63,7 +63,7 @@ def find_qmk(explicit: str | None) -> Path:
     candidates.append(str(Path.home() / "qmk_firmware"))
     for c in candidates:
         if c and (Path(c) / "drivers/oled/glcdfont.c").exists():
-            return Path(c)
+            return Path(c).resolve()
     raise SystemExit("QMK checkout not found; pass --qmk /path/to/qmk_firmware")
 
 

@@ -37,7 +37,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install tools
-        run: pip install qmk keymap-drawer pytest
+        run: pip install qmk keymap-drawer==0.23.0 pytest
 
       - name: Generate layer data and images
         run: |
