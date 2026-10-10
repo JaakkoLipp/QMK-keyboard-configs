@@ -1,0 +1,25 @@
+# Junk files
+*.bak
+*.swp
+*~
+.DS_Store
+._*
+
+# Firmware files
+*.hex
+*.bin
+*.uf2
+
+# clangd
+compile_commands.json
+.clangd/
+.cache/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+build/
+dist/

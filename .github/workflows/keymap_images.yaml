@@ -1,0 +1,63 @@
+name: Keymap images and tools
+
+# Regenerates docs/layers/*.svg and the overlay data from keymap.c, runs the
+# Python tests, and commits regenerated files back to the branch.
+
+on:
+  push:
+    paths:
+      - "keyboards/**"
+      - "tools/**"
+      - ".github/workflows/keymap_images.yaml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout QMK (keycode spec, Finnish header, Sofle layout)
+        uses: actions/checkout@v4
+        with:
+          repository: qmk/qmk_firmware
+          path: .qmk_firmware
+          sparse-checkout: |
+            data
+            lib/python
+            quantum/keymap_extras
+            keyboards/mechboards
+            drivers/oled
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools
+        run: pip install qmk keymap-drawer==0.23.0 pytest
+
+      - name: Generate layer data and images
+        run: |
+          python tools/keymap/gen_layers.py --qmk .qmk_firmware --draw
+          python tools/oled/gen_gfx.py --check
+          python tools/oled/preview.py --qmk .qmk_firmware
+
+      - name: Test
+        env:
+          QMK_HOME: .qmk_firmware
+        run: python -m pytest tools -q
+
+      - name: Commit regenerated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs tools/layer_overlay/layer_overlay/data tools/keymap/sofle_pro_info.json
+          if git diff --cached --quiet; then
+            echo "Nothing to update"
+          else
+            git commit -m "Regenerate layer images and overlay data"
+            git push
+          fi

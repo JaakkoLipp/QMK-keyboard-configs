@@ -1,0 +1,23 @@
+VIA_ENABLE = yes
+ENCODER_MAP_ENABLE = yes
+LTO_ENABLE = yes
+
+RGB_MATRIX_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+OS_DETECTION_ENABLE = yes
+LAYER_LOCK_ENABLE = yes
+CAPS_WORD_ENABLE = yes
+DEFERRED_EXEC_ENABLE = yes
+WPM_ENABLE = yes
+
+PROGRAMMABLE_BUTTON_ENABLE = no
+TAP_DANCE_ENABLE = no
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+
+SRC += features/fi_keys.c \
+       features/shared.c \
+       features/host_link.c \
+       features/oled.c \
+       features/rgb_layers.c
